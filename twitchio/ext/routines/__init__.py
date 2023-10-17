@@ -341,9 +341,9 @@ class Routine:
         try:
             if self._before:
                 if self._instance:
-                    await self._before(self._instance)
+                    await self._before(self._instance, *args, **kwargs)
                 else:
-                    await self._before()
+                    await self._before(*args, **kwargs)
         except Exception as e:
             await self._error(e)
 
@@ -399,9 +399,9 @@ class Routine:
         try:
             if self._after:
                 if self._instance:
-                    await self._after(self._instance)
+                    await self._after(self._instance, *args, **kwargs)
                 else:
-                    await self._after()
+                    await self._after(*args, **kwargs)
         except Exception as e:
             await self._error(e)
         finally:
