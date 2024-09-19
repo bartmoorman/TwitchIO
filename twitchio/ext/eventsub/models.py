@@ -667,7 +667,7 @@ class CustomReward:
         "redemptions_skip_queue",
         "redemptions_current_stream",
         "max_per_stream",
-        "max_per_user_stream",
+        "max_per_user_per_stream",
         "cooldown",
         "background_color",
         "image",
@@ -698,7 +698,7 @@ class CustomReward:
             data.get("max_per_stream", {}).get("is_enabled"),
             data.get("max_per_stream", {}).get("value"),
         )
-        self.max_per_user_stream: Tuple[Optional[bool], Optional[int]] = (
+        self.max_per_user_per_stream: Tuple[Optional[bool], Optional[int]] = (
             data.get("max_per_user_per_stream", {}).get("is_enabled"),
             data.get("max_per_user_per_stream", {}).get("value"),
         )

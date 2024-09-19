@@ -60,7 +60,7 @@ class CustomReward:
         Whether the custom reward requires input
     max_per_stream: Tuple[:class:`bool`, :class:`int`]
         Whether the custom reward is limited to a certain amount per stream, and how many
-    max_per_user_stream: Tuple[:class:`bool`, :class:`int`]
+    max_per_user_per_stream: Tuple[:class:`bool`, :class:`int`]
         Whether the custom reward is limited to a certain amount per user per stream, and how many
     cooldown: Tuple[:class:`bool`, :class:`int`]
         Whether the custom reward has a cooldown, and how long it is
@@ -88,7 +88,7 @@ class CustomReward:
         "prompt",
         "input_required",
         "max_per_stream",
-        "max_per_user_stream",
+        "max_per_user_per_stream",
         "cooldown",
         "paused",
         "in_stock",
@@ -120,7 +120,7 @@ class CustomReward:
                 obj["max_per_stream_setting"]["is_enabled"],
                 obj["max_per_stream_setting"]["max_per_stream"],
             )
-            self.max_per_user_stream = (
+            self.max_per_user_per_stream = (
                 obj["max_per_user_per_stream_setting"]["is_enabled"],
                 obj["max_per_user_per_stream_setting"]["max_per_user_per_stream"],
             )
@@ -130,7 +130,7 @@ class CustomReward:
             )
         except KeyError:
             self.max_per_stream = (obj["max_per_stream"]["is_enabled"], obj["max_per_stream"]["max_per_stream"])
-            self.max_per_user_stream = (
+            self.max_per_user_per_stream = (
                 obj["max_per_user_per_stream"]["is_enabled"],
                 obj["max_per_user_per_stream"]["max_per_user_per_stream"],
             )
