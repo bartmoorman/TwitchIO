@@ -123,7 +123,10 @@ class Chatter(PartialChatter):
             self._vip = None
             return
 
-        self._id = self._tags.get("user-id")
+        try:
+            self._id = int(self._tags.get("user-id"))
+        except TypeError:
+            self._id = self._tags.get("user-id")
         self._badges = self._tags.get("badges")
         self._turbo = self._tags.get("turbo")
         self._sub = int(self._tags["subscriber"])
@@ -165,7 +168,7 @@ class Chatter(PartialChatter):
         return self._display_name
 
     @property
-    def id(self) -> Optional[str]:
+    def id(self) -> Optional[int]:
         """The user's id."""
         return self._id
 
