@@ -382,12 +382,12 @@ class Command:
         if not self._cooldowns:
             return None
 
-        min_retry = 0
+        retries = []
         for c in self._cooldowns:
             retry = c.on_cooldown(context)
-            if retry:
-                min_retry = retry if retry > min_retry else min_retry
-        return min_retry
+            retries.append(retry)
+        if all(retries):
+            return min(retries)
 
     async def handle_checks(self, context: Context) -> Union[Literal[True], Exception]:
         # TODO Docs

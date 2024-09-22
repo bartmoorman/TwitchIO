@@ -187,7 +187,7 @@ class Cooldown:
         for key in expired:
             del self._cache[key]
 
-    def on_cooldown(self, ctx):
+    def on_cooldown(self, ctx) -> None:
         now = time.time()
 
         self._update_cache(now)
