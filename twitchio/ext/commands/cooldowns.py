@@ -137,12 +137,12 @@ class Cooldown:
             retry = self._per - (now - cooldown["start_time"])
             return retry
 
-        if cooldown["tokens"] == 1:
+        if cooldown["tokens"] == 1 and self._rate > 1:
             cooldown["next_start_time"] = now
 
         cooldown["tokens"] += 1
 
-        if cooldown["tokens"] == self._rate:
+        if cooldown["tokens"] == self._rate and not self._rate == 1:
             cooldown["start_time"] = cooldown["next_start_time"]
 
         self._cache[key] = cooldown
