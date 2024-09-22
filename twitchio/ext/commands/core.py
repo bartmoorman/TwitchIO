@@ -380,7 +380,7 @@ class Command:
 
     def _run_cooldowns(self, context: Context) -> Optional[int]:
         if not self._cooldowns:
-            return
+            return None
 
         min_retry = 0
         for c in self._cooldowns:

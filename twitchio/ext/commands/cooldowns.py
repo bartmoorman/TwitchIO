@@ -175,6 +175,7 @@ class Cooldown:
         return key
 
     def _update_cache(self, now) -> None:
+        expired = []
         for key, cooldown in self._cache.items():
             if now > cooldown["start_time"] + self._per:
                 if cooldown["tokens"] > 1:
@@ -182,7 +183,9 @@ class Cooldown:
                     cooldown["start_time"] = cooldown["next_start_time"]
                     cooldown["next_start_time"] = now
                 else:
-                    del self._cache[key]
+                    expired.append(key)
+        for key in expired:
+            del self._cache[key]
 
     def on_cooldown(self, ctx):
         now = time.time()
@@ -192,6 +195,6 @@ class Cooldown:
         key = self._key(ctx)
         if key:
             if not key in self._cache:
-                self._cache[key] = {"tokens": 0, "start_time": now}
+                self._cache[key] = {"tokens": 0, "start_time": now, "next_start_time": None}
 
             return self.update_cooldown(key, now)
