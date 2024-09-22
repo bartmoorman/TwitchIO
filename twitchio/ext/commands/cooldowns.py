@@ -188,7 +188,8 @@ class Cooldown:
 
         self._update_cache(now)
 
-        if key := self._key(ctx):
+        key = self._key(ctx)
+        if key:
             if not key in self._cache:  
                 self._cache[key] = {'tokens': 0, 'start_time': now}
 

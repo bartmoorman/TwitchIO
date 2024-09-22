@@ -384,7 +384,8 @@ class Command:
 
         min_retry = 0
         for c in self._cooldowns:
-            if retry := c.on_cooldown(context):
+            retry = c.on_cooldown(context)
+            if retry:
                 min_retry = retry if retry > min_retry else min_retry
         return min_retry
 
