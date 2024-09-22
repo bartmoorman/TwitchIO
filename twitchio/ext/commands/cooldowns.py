@@ -73,6 +73,7 @@ class Bucket(enum.Enum):
     mod = 7
     broadcaster = 8
 
+
 class Cooldown:
     """
     Cooldown decorator values.
@@ -132,17 +133,17 @@ class Cooldown:
     def update_cooldown(self, key, now) -> int | None:
         cooldown = self._cache[key]
 
-        if cooldown['tokens'] == self._rate:
-            retry = self._per - (now - cooldown['start_time'])
+        if cooldown["tokens"] == self._rate:
+            retry = self._per - (now - cooldown["start_time"])
             return retry
 
-        if cooldown['tokens'] == 1:
-            cooldown['next_start_time'] = now
+        if cooldown["tokens"] == 1:
+            cooldown["next_start_time"] = now
 
-        cooldown['tokens'] += 1
+        cooldown["tokens"] += 1
 
-        if cooldown['tokens'] == self._rate:
-            cooldown['start_time'] = cooldown['next_start_time']
+        if cooldown["tokens"] == self._rate:
+            cooldown["start_time"] = cooldown["next_start_time"]
 
         self._cache[key] = cooldown
 
@@ -175,11 +176,11 @@ class Cooldown:
 
     def _update_cache(self, now) -> None:
         for key, cooldown in self._cache.items():
-            if now > cooldown['start_time'] + self._per:
-                if cooldown['tokens'] > 1:
-                    cooldown['tokens'] -= 1
-                    cooldown['start_time'] = cooldown['next_start_time']
-                    cooldown['next_start_time'] = now
+            if now > cooldown["start_time"] + self._per:
+                if cooldown["tokens"] > 1:
+                    cooldown["tokens"] -= 1
+                    cooldown["start_time"] = cooldown["next_start_time"]
+                    cooldown["next_start_time"] = now
                 else:
                     del self._cache[key]
 
@@ -190,7 +191,7 @@ class Cooldown:
 
         key = self._key(ctx)
         if key:
-            if not key in self._cache:  
-                self._cache[key] = {'tokens': 0, 'start_time': now}
+            if not key in self._cache:
+                self._cache[key] = {"tokens": 0, "start_time": now}
 
             return self.update_cooldown(key, now)
