@@ -128,7 +128,7 @@ class Chatter(PartialChatter):
         except TypeError:
             self._id = self._tags.get("user-id")
         self._badges = self._tags.get("badges")
-        self._turbo = self._tags.get("turbo")
+        self._turbo = int(self._tags.get("turbo", 0))
         self._sub = int(self._tags["subscriber"])
         self._mod = int(self._tags["mod"])
         self._display_name = self._tags["display-name"]
@@ -209,7 +209,7 @@ class Chatter(PartialChatter):
 
         Could be None if no Tags were received.
         """
-        return self._turbo
+        return bool(self._turbo)
 
     @property
     def is_subscriber(self) -> bool:
