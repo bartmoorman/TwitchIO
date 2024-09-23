@@ -123,17 +123,14 @@ class Chatter(PartialChatter):
             self._vip = None
             return
 
-        try:
-            self._id = int(self._tags.get("user-id"))
-        except TypeError:
-            self._id = self._tags.get("user-id")
+        self._id = self._tags.get("user-id")
         self._badges = self._tags.get("badges")
-        self._turbo = int(self._tags.get("turbo", 0))
-        self._sub = int(self._tags["subscriber"])
-        self._mod = int(self._tags["mod"])
+        self._turbo = self._tags.get("turbo")
+        self._sub = self._tags["subscriber"]
+        self._mod = self._tags["mod"]
         self._display_name = self._tags["display-name"]
         self._colour = self._tags["color"]
-        self._vip = int(self._tags.get("vip", 0))
+        self._vip = self._tags.get("vip")
 
         if self._badges:
             self._cached_badges = dict([badge.split("/") for badge in self._badges.split(",")])
@@ -170,7 +167,7 @@ class Chatter(PartialChatter):
     @property
     def id(self) -> Optional[int]:
         """The user's id."""
-        return self._id
+        return int(self._id) if self._id else self._id
 
     @property
     def mention(self) -> str:
@@ -196,7 +193,7 @@ class Chatter(PartialChatter):
     @property
     def is_mod(self) -> bool:
         """A boolean indicating whether the User is a moderator of the current channel."""
-        return True if self._mod == 1 else self.channel.name == self.name.lower()
+        return bool(self._mod) or self.channel.name == self.name.lower()
 
     @property
     def is_vip(self) -> bool:
@@ -204,7 +201,7 @@ class Chatter(PartialChatter):
         return bool(self._vip)
 
     @property
-    def is_turbo(self) -> Optional[bool]:
+    def is_turbo(self) -> bool:
         """A boolean indicating whether the User is Turbo.
 
         Could be None if no Tags were received.
