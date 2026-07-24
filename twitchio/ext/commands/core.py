@@ -543,6 +543,8 @@ class Command(Generic[Component_T, P]):
 
         try:
             result = await result
+        except CommandError:
+            raise
         except Exception as e:
             raise BadArgument(f'Failed to convert "{name}" to {type(converter)}', name=name, value=raw) from e
 
