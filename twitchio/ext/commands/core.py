@@ -486,6 +486,8 @@ class Command(Generic[Component_T, P]):
             for c in reversed(converters):
                 try:
                     result = await self._do_conversion(context, param=param, annotation=c, raw=raw)
+                except CommandError:
+                    raise
                 except Exception:
                     continue
 
