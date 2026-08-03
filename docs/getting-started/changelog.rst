@@ -6,7 +6,7 @@
 Changelog
 ##########
 
-3.3.0b
+3.3.0
 =======
 - twitchio
     - Additions
@@ -51,6 +51,10 @@ Changelog
             - :meth:`~twitchio.PartialUser.fetch_shield_mode_status`
             - :meth:`~twitchio.PartialUser.warn_user`
 
+    - Bug fixes
+        - Added missing attribute :attr:`~twitchio.SearchChannel.game_name`.
+        - Fix typo preventing :func:`~twitchio.PartialUser.fetch_stream` filtering by game ids.
+
 - twitchio.eventsub
     - Additions
         - Added - :class:`~twitchio.CustomPowerupRedemptionAdd` event model.
@@ -61,6 +65,7 @@ Changelog
         - Added - :class:`~twitchio.ChatMessageGif` to accomodate :attr:`~twitchio.ChatMessageFragment.gif`
         - Added - :attr:`~twitchio.ChatNotification.watch_streak` and :attr:`~twitchio.ChatNotification.source_only` to :class:`~twitchio.ChatNotification` event.
         - Added - :meth:`~twitchio.ChatMessage.pin`, :meth:`~twitchio.ChatMessage.update_pin`, and :meth:`~twitchio.ChatMessage.unpin` to :class:`~twitchio.ChatMessage`.
+        - Added - ``token_for`` parameter to all event payloads that support the ``.respond`` method.
 
 
 - twitchio.Client
